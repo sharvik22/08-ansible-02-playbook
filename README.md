@@ -23,6 +23,23 @@
 ---
 
 ## Решение
+5. Запустите `ansible-lint site.yml` и исправьте ошибки, если они есть.
+
+![5](https://github.com/user-attachments/assets/e559e268-5a19-478e-8439-27952c72ac53)
+
+6. Попробуйте запустить playbook на этом окружении с флагом `--check`.
+
+![6](https://github.com/user-attachments/assets/559c5147-ab1e-4460-a0bf-a3e1186514f6)
+
+7. Запустите playbook на `prod.yml` окружении с флагом `--diff`. Убедитесь, что изменения на системе произведены.
+
+![7](https://github.com/user-attachments/assets/741fd0b2-c58d-4a04-8e9a-a096ed69c6b9)
+
+8. Повторно запустите playbook с флагом `--diff` и убедитесь, что playbook идемпотентен.
+
+![8](https://github.com/user-attachments/assets/523e4a3b-8c6b-4feb-b91d-8ed25b8eb8e6)
+
+![Screenshot_1](https://github.com/user-attachments/assets/ca8f066b-1bfe-4fa5-b671-7b4a09e58d35)
 
 
 
