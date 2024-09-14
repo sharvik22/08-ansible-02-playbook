@@ -1,0 +1,10 @@
+[sources.my_source_id]
+  type = "file"
+  include = ["/var/log/myapp/*.log"]
+
+[sinks.my_sink_id]
+  type = "clickhouse"
+  inputs = ["my_source_id"]
+  endpoint = "http://192.168.1.4:8123"
+  database = "logs"
+  table = "my_table"
