@@ -2,7 +2,7 @@
 clickhouse_servers:
   hosts:
     clickhouse_host:
-      ansible_host: 192.168.1.4
+      ansible_host: 192.168.1.11
       ansible_user: admon
       ansible_ssh_private_key_file: /root/.ssh/id_ed25519
       ansible_become_pass: "{{ clickhouse_become_pass }}"
@@ -10,7 +10,7 @@ clickhouse_servers:
 vector_servers:
   hosts:
     vector_host:
-      ansible_host: 192.168.1.5
+      ansible_host: 192.168.1.2
       ansible_user: admon
       ansible_ssh_private_key_file: /root/.ssh/id_ed25519
       ansible_become_pass: "{{ vector_become_pass }}"

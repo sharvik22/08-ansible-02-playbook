@@ -1,6 +1,7 @@
 ---
 - name: Install Clickhouse
   hosts: clickhouse_servers
+#  debugger: always
   become: true
   vars_files:
     - group_vars/clickhouse/vars.yml
@@ -20,18 +21,24 @@
             url: "https://packages.clickhouse.com/rpm/stable/clickhouse-client-{{ clickhouse_version }}.noarch.rpm"
             dest: "./clickhouse-client-{{ clickhouse_version }}.noarch.rpm"
             validate_certs: false
+          tags:
+            - clickhouse
             
         - name: clickhouse-server
           ansible.builtin.get_url:
             url: "https://packages.clickhouse.com/rpm/stable/clickhouse-server-{{ clickhouse_version }}.noarch.rpm"
             dest: "./clickhouse-server-{{ clickhouse_version }}.noarch.rpm"
             validate_certs: false
+          tags:
+            - clickhouse
             
         - name: clickhouse-common-static
           ansible.builtin.get_url:
             url: "https://packages.clickhouse.com/rpm/stable/clickhouse-common-static-{{ clickhouse_version }}.x86_64.rpm"
             dest: "./clickhouse-common-static-{{ clickhouse_version }}.rpm"
             validate_certs: false
+          tags:
+            - clickhouse
 
     - name: Install clickhouse packages
       become: true
@@ -41,14 +48,20 @@
           - clickhouse-client-{{ clickhouse_version }}.noarch.rpm
           - clickhouse-server-{{ clickhouse_version }}.noarch.rpm
       notify: Start clickhouse service
+      tags:
+        - clickhouse
 
     - name: Flush handlers
       meta: flush_handlers
+      tags:
+        - clickhouse
 
     - name: Check if clickhouse-server is running
       become: true
       ansible.builtin.service_facts:
       register: service_state
+      tags:
+        - clickhouse
 
     - name: Ensure clickhouse-server is running
       become: true
@@ -56,15 +69,20 @@
         name: clickhouse-server
         state: started
       when: "'clickhouse-server' not in service_state or service_state['clickhouse-server'].state != 'running'"
+      tags:
+        - clickhouse
 
     - name: Create database
       ansible.builtin.command: "clickhouse-client -q 'create database logs;'"
       register: create_db
       failed_when: create_db.rc != 0 and create_db.rc != 82
       changed_when: create_db.rc == 0
+      tags:
+        - clickhouse
 
 - name: Install Vector
   hosts: vector_servers
+# debugger: always
   become: true
   vars_files:
     - group_vars/vector/vars.yml
@@ -76,20 +94,36 @@
         url: "https://packages.timber.io/vector/{{ vector_version }}/vector-{{ vector_version }}-x86_64-unknown-linux-musl.tar.gz"
         dest: "/tmp/vector-{{ vector_version }}.tar.gz"
         validate_certs: false
+      tags:
+        - vector
 
     - name: Extract Vector binary
       ansible.builtin.unarchive:
         src: "/tmp/vector-{{ vector_version }}.tar.gz"
         dest: "/opt"
         remote_src: true
+      tags:
+        - vector
 
     - name: Create symlink for Vector
       ansible.builtin.file:
-        src: "/opt/vector-{{ vector_version }}-x86_64-unknown-linux-musl/bin/vector"
+        src: "/opt/vector-x86_64-unknown-linux-musl/bin/vector"
         dest: "/usr/local/bin/vector"
         state: link
         force: yes
         follow: false
+      tags:
+        - vector
+
+    - name: Ensure Vector data directory exists
+      ansible.builtin.file:
+        path: /var/lib/vector
+        state: directory
+        owner: root
+        group: root
+        mode: '0755'
+      tags:
+        - vector
 
     - name: Create Vector configuration directory
       ansible.builtin.file:
@@ -98,6 +132,8 @@
         owner: root
         group: root
         mode: '0755'
+      tags:
+        - vector
 
     - name: Deploy Vector configuration file
       ansible.builtin.template:
@@ -106,6 +142,8 @@
         owner: root
         group: root
         mode: '0644'
+      tags:
+        - vector
 
     - name: Create Vector service unit file
       ansible.builtin.template:
@@ -114,13 +152,19 @@
         owner: root
         group: root
         mode: '0644'
+      tags:
+        - vector
 
     - name: Reload systemd daemon
       ansible.builtin.systemd:
         daemon_reload: yes
+      tags:
+        - vector
 
     - name: Ensure Vector service is running
       ansible.builtin.systemd:
         name: vector
         state: started
         enabled: yes
+      tags:
+        - vector

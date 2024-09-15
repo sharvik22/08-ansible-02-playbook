@@ -1,10 +1,21 @@
-[sources.my_source_id]
-  type = "file"
-  include = ["/var/log/myapp/*.log"]
+#[sources.my_source_id]
+#  type = "file"
+#  include = ["/var/log/myapp/*.log"]
 
-[sinks.my_sink_id]
-  type = "clickhouse"
-  inputs = ["my_source_id"]
-  endpoint = "http://192.168.1.4:8123"
-  database = "logs"
-  table = "my_table"
+#[sinks.my_sink_id]
+#  type = "clickhouse"
+#  inputs = ["my_source_id"]
+#  endpoint = "http://192.168.1.11:8123"
+#  database = "logs"
+#  table = "my_table"
+
+[sources.syslog]
+type = "file"
+include = ["/var/log/messages"]
+
+[sinks.clickhouse]
+type = "clickhouse"
+endpoint = "http://192.168.1.11:8123"
+database = "default"
+table = "logs"
+inputs = ["syslog"]
