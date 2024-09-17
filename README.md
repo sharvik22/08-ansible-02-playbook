@@ -80,3 +80,23 @@
 ![8](https://github.com/user-attachments/assets/523e4a3b-8c6b-4feb-b91d-8ed25b8eb8e6)
 
 ![Screenshot_1](https://github.com/user-attachments/assets/ca8f066b-1bfe-4fa5-b671-7b4a09e58d35)
+
+
+## Повторная проверка
+
+![5](https://github.com/user-attachments/assets/bd3b7b32-a2eb-4179-8ed7-c2804003d877)
+
+![6](https://github.com/user-attachments/assets/dc61c972-c44a-41c3-bd79-3adec5cfd51d)
+
+![7](https://github.com/user-attachments/assets/4e1ba0dd-ba3c-4087-8969-f428fa00030e)
+
+![8](https://github.com/user-attachments/assets/5ea8ece6-50bf-4e52-b89d-d185a10039e8)
+
+![1-1](https://github.com/user-attachments/assets/60ae831b-603c-4029-8b3e-dedc886ed34b)
+
+![1-2](https://github.com/user-attachments/assets/13b84ead-a00a-4d61-aea8-9c7fc63d83d5)
+
+![1-3](https://github.com/user-attachments/assets/9578b375-3cdb-4b23-a657-4340f8caaff5)
+
+![2-1](https://github.com/user-attachments/assets/5b162b03-6a37-4512-903d-e9565e7ab2cf)
+
