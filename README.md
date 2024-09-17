@@ -82,8 +82,20 @@
 ![Screenshot_1](https://github.com/user-attachments/assets/ca8f066b-1bfe-4fa5-b671-7b4a09e58d35)
 
 
-## Повторная проверка
+## Повторная проверка и запуск
 
+Была ошибка в блоке на ссылку, пропустил /usr/bin/vector, вместо /usr/local/bin/vector"
+
+- name: Create symlink for Vector
+      ansible.builtin.file:
+        src: "/opt/vector-x86_64-unknown-linux-musl/bin/vector"
+        dest: "/usr/local/bin/vector"
+        state: link
+        force: yes
+        follow: false
+      tags:
+        - vector
+ 
 ![5](https://github.com/user-attachments/assets/bd3b7b32-a2eb-4179-8ed7-c2804003d877)
 
 ![6](https://github.com/user-attachments/assets/dc61c972-c44a-41c3-bd79-3adec5cfd51d)
